@@ -161,21 +161,24 @@ const resolvedAttrs = computed(() =>
 const getValidationRuleClass = (rule: any) => {
   if (rule.status === 'valid') return 'text-green-600'
   if (rule.status === 'warning') return 'text-orange-500'
-  if (rule.status === 'error') return 'text-red-500'
-  return 'text-gray-500'
+  if (rule.status === 'error') return 'text-orange-500'
+  if (rule.status === 'pending') return 'text-orange-500'
+  return 'text-orange-500'
 }
 
 const getValidationIcon = (rule: any) => {
   if (rule.status === 'valid') return CheckCircleIcon
   if (rule.status === 'warning') return ExclamationTriangleIcon
   if (rule.status === 'error') return XCircleIcon
-  return CheckCircleIcon
+  if (rule.status === 'pending') return ExclamationTriangleIcon
+  return ExclamationTriangleIcon
 }
 
 const getValidationIconClass = (rule: any) => {
   if (rule.status === 'valid') return 'text-green-500'
   if (rule.status === 'warning') return 'text-orange-500'
-  if (rule.status === 'error') return 'text-red-500'
-  return 'text-gray-400'
+  if (rule.status === 'error') return 'text-orange-500'
+  if (rule.status === 'pending') return 'text-orange-500'
+  return 'text-orange-500'
 }
 </script>

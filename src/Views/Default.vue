@@ -166,8 +166,10 @@ const usernameValidationRules = computed(() => {
     },
     {
       id: 'availability',
-      message: `Good news! Username '${username}' is available!`,
-      status: username.length >= 3 && /^[a-z0-9]+$/.test(username) && !username.includes(' ') ? 'valid' : 'pending'
+      message: username.length >= 3 && /^[a-z0-9]+$/.test(username) && !username.includes(' ')
+        ? `Good news! Username '${username}' is available!`
+        : `Sorry, username "${username}" is taken`,
+      status: username.length >= 3 && /^[a-z0-9]+$/.test(username) && !username.includes(' ') ? 'valid' : 'error'
     }
   ]
   return rules
