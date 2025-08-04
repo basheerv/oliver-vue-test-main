@@ -46,9 +46,30 @@
         <p
           v-if="description"
           v-bind="resolvedAttrs.descriptionAttrs"
-          class="mt-1 text-sm text-gray-500">
+          :class="[
+            'mt-1 text-sm',
+            descriptionType === 'error' ? 'text-red-500' :
+            descriptionType === 'warning' ? 'text-orange-500' :
+            descriptionType === 'success' ? 'text-green-500' :
+            'text-gray-500'
+          ]">
           {{ description }}
         </p>
+
+        <!-- Validation Rules -->
+        <div v-if="validationRules && validationRules.length > 0" class="mt-2 space-y-1">
+          <div
+            v-for="rule in validationRules"
+            :key="rule.id"
+            class="flex items-center text-sm"
+            :class="getValidationRuleClass(rule)">
+            <component
+              :is="getValidationIcon(rule)"
+              class="w-4 h-4 mr-2"
+              :class="getValidationIconClass(rule)" />
+            <span>{{ rule.message }}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -57,6 +78,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { resolveAllConfigs } from '@/utils/componentRenderingUtils'
+import { CheckCircleIcon, ExclamationTriangleIcon, XCircleIcon } from '@heroicons/vue/24/solid'
 
 const props = defineProps({
   modelValue: [String, Number],
@@ -83,6 +105,10 @@ const props = defineProps({
 
   // Description
   description: String,
+  descriptionType: { type: String, default: 'default' }, // "error", "warning", "success", "default"
+
+  // Validation
+  validationRules: { type: Array as () => any[], default: () => [] },
 
   // Icons
   leftIcon: [String, Object, Function],
@@ -137,4 +163,26 @@ const inputConfig = {
 const resolvedAttrs = computed(() =>
   resolveAllConfigs(inputConfig, props.version, props)
 )
+
+// Validation methods
+const getValidationRuleClass = (rule: any) => {
+  if (rule.status === 'valid') return 'text-green-600'
+  if (rule.status === 'warning') return 'text-orange-500'
+  if (rule.status === 'error') return 'text-red-500'
+  return 'text-gray-500'
+}
+
+const getValidationIcon = (rule: any) => {
+  if (rule.status === 'valid') return CheckCircleIcon
+  if (rule.status === 'warning') return ExclamationTriangleIcon
+  if (rule.status === 'error') return XCircleIcon
+  return CheckCircleIcon
+}
+
+const getValidationIconClass = (rule: any) => {
+  if (rule.status === 'valid') return 'text-green-500'
+  if (rule.status === 'warning') return 'text-orange-500'
+  if (rule.status === 'error') return 'text-red-500'
+  return 'text-gray-400'
+}
 </script>

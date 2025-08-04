@@ -35,7 +35,8 @@
               required-display="italic-text"
               :right-icon="EyeSlashIcon"
               type="password"
-              description="Your password must be at least 8 characters long"
+              description="Password strength is weak"
+              description-type="warning"
             />
           </div>
 

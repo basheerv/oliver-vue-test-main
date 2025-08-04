@@ -41,6 +41,8 @@
           label-text="Phone Number"
           required
           required-display="italic-text"
+          description="Please include your country code"
+          description-type="default"
         />
       </div>
 
@@ -81,15 +83,42 @@
         />
       </div>
 
-      <!-- Custom styled input -->
+      <!-- Username validation input -->
       <div>
-        <h2 class="text-xl font-semibold text-gray-800 mb-4">Custom Styled Input</h2>
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Username Validation</h2>
         <InputComponentDefault
-          v-model="customInput"
-          placeholder="Custom styled input"
+          v-model="usernameInput"
+          placeholder="Enter your username"
           show-label
-          label-text="Custom Input"
-          add-class="bg-blue-50 border-blue-300 focus:border-blue-600 focus:ring-blue-600"
+          label-text="Username"
+          description="Usernames cannot be changed after your first month on Fansocial, but special circumstances may allow for exceptions. Please contact us if you need assistance with changing your username."
+          :validation-rules="usernameValidationRules"
+        />
+      </div>
+
+      <!-- Warning state input -->
+      <div>
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Warning State Input</h2>
+        <InputComponentDefault
+          v-model="warningInput"
+          placeholder="Enter your password"
+          show-label
+          label-text="Password"
+          description="Password strength is weak"
+          description-type="warning"
+        />
+      </div>
+
+      <!-- Success state input -->
+      <div>
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Success State Input</h2>
+        <InputComponentDefault
+          v-model="successInput"
+          placeholder="Enter your email"
+          show-label
+          label-text="Email"
+          description="Email format is valid"
+          description-type="success"
         />
       </div>
     </div>
@@ -114,7 +143,38 @@ const italicRequiredInput = ref('')
 const iconInput = ref('')
 const rightIconInput = ref('')
 const bothIconsInput = ref('')
-const customInput = ref('')
+const errorInput = ref('')
+const warningInput = ref('')
+const successInput = ref('')
+const usernameInput = ref('')
+
+// Username validation rules
+const usernameValidationRules = computed(() => {
+  const username = usernameInput.value
+  const rules = [
+    {
+      id: 'length',
+      message: 'Must be between 3 and 100 characters long.',
+      status: username.length >= 3 && username.length <= 100 ? 'valid' : 'error'
+    },
+    {
+      id: 'characters',
+      message: 'Can contain any letters from a-z, any numbers from 0-9.',
+      status: /^[a-z0-9]+$/.test(username) ? 'valid' : 'error'
+    },
+    {
+      id: 'spaces',
+      message: 'Cannot contain space.',
+      status: !username.includes(' ') ? 'valid' : 'error'
+    },
+    {
+      id: 'availability',
+      message: `Good news! Username '${username}' is available!`,
+      status: username.length >= 3 && /^[a-z0-9]+$/.test(username) && !username.includes(' ') ? 'valid' : 'pending'
+    }
+  ]
+  return rules
+})
 
 // Computed property to display all values
 const displayValues = computed(() => ({
@@ -124,7 +184,10 @@ const displayValues = computed(() => ({
   iconInput: iconInput.value,
   rightIconInput: rightIconInput.value,
   bothIconsInput: bothIconsInput.value,
-  customInput: customInput.value
+  errorInput: errorInput.value,
+  warningInput: warningInput.value,
+  successInput: successInput.value,
+  usernameInput: usernameInput.value
 }))
 </script>
 

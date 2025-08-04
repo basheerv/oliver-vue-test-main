@@ -64,6 +64,8 @@
           required
           required-display="*"
           :left-icon="CurrencyDollarIcon"
+          description="Amount exceeds daily limit"
+          description-type="error"
         />
       </div>
 
@@ -76,6 +78,8 @@
           show-label
           label-text="Reference Number"
           :left-icon="DocumentTextIcon"
+          description="Reference number is valid"
+          description-type="success"
         />
       </div>
     </div>
