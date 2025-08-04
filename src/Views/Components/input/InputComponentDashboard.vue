@@ -23,10 +23,10 @@
 
         <!-- Input -->
         <div
-          class="flex items-center px-3 py-2 h-10 border-b rounded shadow bg-white/50">
+          class="flex items-center px-3 py-2.5 h-10 border-b rounded shadow bg-white/50">
           <input
             v-bind="resolvedAttrs.inputAttrs"
-            class="flex-1 text-base font-normal text-[#101828] outline-none ring-0 bg-transparent border-none focus:ring-0 focus:ring-offset-0 focus:border-none placeholder-[#757575] placeholder:text-base placeholder:leading-6 placeholder:font-normal"
+            class="flex-1 text-base font-normal text-[#101828] focus:outline-none ring-0 bg-transparent border-none focus:ring-0 focus:ring-offset-0 focus:border-none placeholder-[#757575] placeholder:text-base placeholder:leading-6 placeholder:font-normal border"
             :id="addId || resolvedAttrs.inputAttrs.id"
             :value="modelValue"
             @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
