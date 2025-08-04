@@ -13,6 +13,21 @@ const router = createRouter({
       name: 'orders',
       component: () => import('../Views/OrdersMain.vue'),
     },
+    {
+      path: '/auth',
+      name: 'auth',
+      component: () => import('../Views/Auth.vue'),
+    },
+    {
+      path: '/default',
+      name: 'default',
+      component: () => import('../Views/Default.vue'),
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import('../Views/Dashboard.vue'),
+    },
   ],
 })
 

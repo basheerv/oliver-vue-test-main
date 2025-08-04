@@ -4,6 +4,9 @@
       <h1 class="text-xl font-semibold text-gray-900">Home</h1>
     </div>
     <nav class="flex space-x-4">
+      <RouterLink to="/dashboard" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Dashboard</RouterLink>
+      <RouterLink to="/auth" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Auth</RouterLink>
+      <RouterLink to="/default" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Default</RouterLink>
       <RouterLink to="/orders" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Orders</RouterLink>
       <RouterLink to="/orders" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Products</RouterLink>
       <RouterLink to="/orders" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Customers</RouterLink>
