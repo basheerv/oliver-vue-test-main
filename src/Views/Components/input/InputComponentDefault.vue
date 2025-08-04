@@ -69,7 +69,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { resolveAllConfigs } from '@/utils/componentRenderingUtils'
-import { CheckCircleIcon, ExclamationTriangleIcon, XCircleIcon } from '@heroicons/vue/24/solid'
+import { CheckIcon, ExclamationTriangleIcon, XCircleIcon } from '@heroicons/vue/24/solid'
 
 const props = defineProps({
   modelValue: [String, Number],
@@ -164,7 +164,7 @@ const getValidationRuleClass = (rule: any) => {
 }
 
 const getValidationIcon = (rule: any) => {
-  if (rule.status === 'valid') return CheckCircleIcon
+  if (rule.status === 'valid') return CheckIcon
   if (rule.status === 'warning') return ExclamationTriangleIcon
   if (rule.status === 'error') return XCircleIcon
   if (rule.status === 'pending') return ExclamationTriangleIcon
