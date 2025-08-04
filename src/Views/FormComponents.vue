@@ -51,18 +51,16 @@
       </div>
 
       <!-- Textarea Component -->
-      <div class="bg-white p-6 rounded-lg shadow-sm border">
-        <h2 class="text-xl font-semibold text-gray-800 mb-4">Textarea Component</h2>
-        <Textarea
-          v-model="textareaContent"
-          label="Textarea"
-          placeholder="Enter multiline text"
-          :rows="4"
-          :max-length="200"
-        />
-        <div class="mt-4 text-sm text-gray-600">
-          Content length: {{ textareaContent.length }} characters
-        </div>
+      <CustomTextArea
+        v-model="textareaContent"
+        title="Textarea Component"
+        label="Textarea"
+        placeholder="Enter multiline text"
+        :rows="4"
+        :max-length="200"
+      />
+      <div class="mt-4 text-sm text-gray-600">
+        Content length: {{ textareaContent.length }} characters
       </div>
     </div>
 
@@ -79,7 +77,7 @@ import { ref, computed } from 'vue'
 import Switch from './Components/Form/Switch.vue'
 import RadioGroup from './Components/Form/RadioGroup.vue'
 import CheckboxGroup from './Components/Form/CheckboxGroup.vue'
-import Textarea from './Components/Form/Textarea.vue'
+import CustomTextArea from './Components/Form/CustomTextArea.vue'
 
 // Switch data
 const darkMode = ref(false)

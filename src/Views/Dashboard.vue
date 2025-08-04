@@ -98,15 +98,13 @@
       </div>
 
       <!-- Transfer Notes -->
-      <div class="bg-white p-3 rounded-lg shadow-sm border">
-        <h2 class="text-xl font-semibold text-gray-800 mb-4">Transfer Notes</h2>
-        <Textarea
-          v-model="transferNotes"
-          placeholder="Enter any additional notes for this transfer"
-          :rows="4"
-          :max-length="500"
-        />
-      </div>
+      <CustomTextArea
+        v-model="transferNotes"
+        title="Transfer Notes"
+        placeholder="Enter any additional notes for this transfer"
+        :rows="4"
+        :max-length="500"
+      />
     </div>
 
     <!-- Display values -->
@@ -134,13 +132,11 @@ import InputComponentDashboard from './Components/input/InputComponentDashboard.
 import RadioGroup from './Components/Form/RadioGroup.vue'
 import CheckboxGroup from './Components/Form/CheckboxGroup.vue'
 import Switch from './Components/Form/Switch.vue'
-import Textarea from './Components/Form/Textarea.vue'
+import CustomTextArea from './Components/Form/CustomTextArea.vue'
 import {
   QuestionMarkCircleIcon,
   UserIcon,
-  BuildingOfficeIcon,
-  CurrencyDollarIcon,
-  DocumentTextIcon
+  CurrencyDollarIcon
 } from '@heroicons/vue/24/outline'
 
 // Reactive data for form fields
