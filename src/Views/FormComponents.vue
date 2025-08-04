@@ -93,7 +93,18 @@ const subscriptionOptions = [
 
 // Checkbox group data
 const selectedOptions = ref<string[]>([])
-const checkboxOptions = [
+
+interface CheckboxOption {
+  value: string | number
+  label: string
+  description?: string
+  tags?: Array<{
+    text: string
+    variant?: 'blue' | 'gray'
+  }>
+}
+
+const checkboxOptions: CheckboxOption[] = [
   {
     value: 'show-username',
     label: 'Show fan\'s username on your post'
