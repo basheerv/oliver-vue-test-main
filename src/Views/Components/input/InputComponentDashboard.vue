@@ -112,7 +112,7 @@ const inputConfig = {
     }
   ],
   elm: {
-    addClass: 'text-gray-900 border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500',
+    addClass: 'text-gray-900 border-gray-300',
     addAttributes: {
       type: 'text'
     }

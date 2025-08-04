@@ -28,7 +28,7 @@
           :value="modelValue"
           @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
           :class="[
-            'py-2 border rounded-md w-full focus:outline-none',
+            'py-2 border rounded-md w-full',
             leftIcon ? 'pl-10' : 'pl-3',
             rightIcon ? 'pr-10' : 'pr-3'
           ]" />
@@ -109,7 +109,7 @@ const inputConfig = {
     }
   ],
   elm: {
-    addClass: 'text-gray-900 border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500',
+    addClass: 'text-gray-900 border-gray-300',
     addAttributes: {
       type: 'text'
     }
