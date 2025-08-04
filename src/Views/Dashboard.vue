@@ -29,27 +29,25 @@
         />
       </div>
 
-      <!-- Bank Name -->
+      <!-- Transfer Type Selection -->
       <div class="bg-white p-6 rounded-lg shadow-sm border">
-        <h2 class="text-xl font-semibold text-gray-800 mb-4">Bank Information</h2>
-        <InputComponentDashboard
-          v-model="bankName"
-          placeholder="Enter bank name"
-          show-label
-          label-text="Bank Name"
-          :left-icon="BuildingOfficeIcon"
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Transfer Type</h2>
+        <RadioGroup
+          v-model="transferType"
+          name="transfer-type"
+          label="Select Transfer Type"
+          :options="transferTypeOptions"
         />
       </div>
 
-      <!-- Swift Code -->
+      <!-- Transfer Options -->
       <div class="bg-white p-6 rounded-lg shadow-sm border">
-        <h2 class="text-xl font-semibold text-gray-800 mb-4">Swift Code</h2>
-        <InputComponentDashboard
-          v-model="swiftCode"
-          placeholder="Enter SWIFT/BIC code"
-          show-label
-          label-text="SWIFT/BIC Code"
-          :right-icon="QuestionMarkCircleIcon"
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Transfer Options</h2>
+        <CheckboxGroup
+          v-model="transferOptions"
+          name="transfer-options"
+          label="Additional Options"
+          :options="transferOptionsList"
         />
       </div>
 
@@ -68,16 +66,45 @@
         />
       </div>
 
-      <!-- Reference Number -->
+      <!-- Swift Code -->
       <div class="bg-white p-6 rounded-lg shadow-sm border">
-        <h2 class="text-xl font-semibold text-gray-800 mb-4">Reference</h2>
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Swift Code</h2>
         <InputComponentDashboard
-          v-model="reference"
-          placeholder="Enter reference number"
+          v-model="swiftCode"
+          placeholder="Enter SWIFT/BIC code"
           show-label
-          label-text="Reference Number"
-          :left-icon="DocumentTextIcon"
-          description="Reference number is valid"
+          label-text="SWIFT/BIC Code"
+          :right-icon="QuestionMarkCircleIcon"
+        />
+      </div>
+
+      <!-- Transfer Settings -->
+      <div class="bg-white p-6 rounded-lg shadow-sm border">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Transfer Settings</h2>
+        <div class="space-y-4">
+          <Switch
+            v-model="urgentTransfer"
+            label="Urgent Transfer"
+          />
+          <Switch
+            v-model="saveTemplate"
+            label="Save as Template"
+          />
+          <Switch
+            v-model="notifications"
+            label="Send Notifications"
+          />
+        </div>
+      </div>
+
+      <!-- Transfer Notes -->
+      <div class="bg-white p-3 rounded-lg shadow-sm border">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Transfer Notes</h2>
+        <Textarea
+          v-model="transferNotes"
+          placeholder="Enter any additional notes for this transfer"
+          :rows="4"
+          :max-length="500"
         />
       </div>
     </div>
@@ -88,10 +115,14 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
         <div><strong>Beneficiary Account:</strong> {{ beneficiaryAccount || 'Not entered' }}</div>
         <div><strong>Account Holder:</strong> {{ accountHolder || 'Not entered' }}</div>
-        <div><strong>Bank Name:</strong> {{ bankName || 'Not entered' }}</div>
+        <div><strong>Transfer Type:</strong> {{ transferType }}</div>
         <div><strong>SWIFT Code:</strong> {{ swiftCode || 'Not entered' }}</div>
         <div><strong>Amount:</strong> {{ amount || 'Not entered' }}</div>
-        <div><strong>Reference:</strong> {{ reference || 'Not entered' }}</div>
+        <div><strong>Transfer Options:</strong> {{ transferOptions.join(', ') || 'None' }}</div>
+        <div><strong>Urgent Transfer:</strong> {{ urgentTransfer ? 'Yes' : 'No' }}</div>
+        <div><strong>Save Template:</strong> {{ saveTemplate ? 'Yes' : 'No' }}</div>
+        <div><strong>Notifications:</strong> {{ notifications ? 'Yes' : 'No' }}</div>
+        <div><strong>Transfer Notes:</strong> {{ transferNotes || 'None' }}</div>
       </div>
     </div>
   </div>
@@ -100,6 +131,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import InputComponentDashboard from './Components/input/InputComponentDashboard.vue'
+import RadioGroup from './Components/Form/RadioGroup.vue'
+import CheckboxGroup from './Components/Form/CheckboxGroup.vue'
+import Switch from './Components/Form/Switch.vue'
+import Textarea from './Components/Form/Textarea.vue'
 import {
   QuestionMarkCircleIcon,
   UserIcon,
@@ -111,10 +146,49 @@ import {
 // Reactive data for form fields
 const beneficiaryAccount = ref('')
 const accountHolder = ref('')
-const bankName = ref('')
 const swiftCode = ref('')
 const amount = ref('')
-const reference = ref('')
+
+// Transfer type selection
+const transferType = ref('domestic')
+const transferTypeOptions = [
+  { value: 'domestic', label: 'Domestic Transfer' },
+  { value: 'international', label: 'International Transfer' },
+  { value: 'urgent', label: 'Urgent Transfer' }
+]
+
+// Transfer options
+const transferOptions = ref<string[]>([])
+const transferOptionsList = [
+  {
+    value: 'save-recipient',
+    label: 'Save Recipient Details',
+    description: 'Store this recipient for future transfers'
+  },
+  {
+    value: 'email-notification',
+    label: 'Email Notification',
+    description: 'Send confirmation email to recipient'
+  },
+  {
+    value: 'sms-notification',
+    label: 'SMS Notification',
+    tags: [{ text: 'Premium', variant: 'blue' as const }]
+  },
+  {
+    value: 'tracking',
+    label: 'Transfer Tracking',
+    tags: [{ text: 'New', variant: 'gray' as const }]
+  }
+]
+
+// Transfer settings
+const urgentTransfer = ref(false)
+const saveTemplate = ref(true)
+const notifications = ref(true)
+
+// Transfer notes
+const transferNotes = ref('')
 </script>
 
 <style scoped>
