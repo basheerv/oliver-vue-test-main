@@ -23,7 +23,7 @@
 
         <!-- Input -->
         <div
-          class="flex items-center px-3 py-2 h-10 border-b  rounded shadow bg-white/50">
+          class="flex items-center px-3 py-2 h-10 border-b rounded shadow bg-white/50">
           <input
             v-bind="resolvedAttrs.inputAttrs"
             class="flex-1 text-base font-normal text-[#101828] outline-none ring-0 bg-transparent border-none focus:ring-0 focus:ring-offset-0 focus:border-none placeholder-[#757575] placeholder:text-base placeholder:leading-6 placeholder:font-normal"
@@ -34,7 +34,6 @@
                leftIcon ? 'pl-10' : 'pl-3',
                rightIcon ? 'pr-10' : 'pr-3'
              ]" />
-
         </div>
 
         <!-- Right icon -->
@@ -61,7 +60,7 @@ const props = defineProps({
   addClass: String,
   removeClass: Boolean,
   addAttributes: Object,
-  removeAttributes: Array,
+  removeAttributes: { type: Array as () => string[], default: () => [] },
 
   // Standard HTML input props
   name: String,
@@ -79,7 +78,7 @@ const props = defineProps({
   rightIcon: [String, Object, Function],
 
   // Wrapper overrides
-  wrapperOverrides: { type: Array, default: () => [] }
+  wrapperOverrides: { type: Array as () => any[], default: () => [] }
 })
 
 // Input component config for dashboard styling

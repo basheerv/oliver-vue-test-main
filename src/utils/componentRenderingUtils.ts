@@ -12,68 +12,110 @@ export interface ComponentConfig {
   additionalConfig?: Record<string, ConfigItem>
 }
 
-export function resolveAllConfigs(
-  config: ComponentConfig,
-  version: string = '',
-  props: any = {}
-): any {
-  const result: any = {
-    wrapperAttrs: {},
-    inputAttrs: {},
-    labelAttrs: {}
-  }
-
-  // Process wrappers
-  if (config.wrappers) {
-    config.wrappers.forEach((wrapper, index) => {
-      const wrapperKey = wrapper.targetAttribute || `wrapper${index + 1}`
-      result.wrapperAttrs[wrapperKey] = resolveConfig(wrapper, props)
-    })
-  }
-
-  // Process input element
-  if (config.elm) {
-    result.inputAttrs = resolveConfig(config.elm, props)
-  }
-
-  // Process additional configs (like label)
-  if (config.additionalConfig) {
-    Object.keys(config.additionalConfig).forEach(key => {
-      const configItem = config.additionalConfig![key]
-      result[`${key}Attrs`] = resolveConfig(configItem, props)
-    })
-  }
-
-  return result
+type ConfigItem = {
+  addId?: string
+  addClass?: string
+  addAttributes?: Record<string, any>
+  removeId?: boolean
+  removeClass?: boolean
+  removeAttributes?: string[]
+  versions?: Record<string, ConfigItem>
 }
 
-function resolveConfig(configItem: ConfigItem, props: any): Record<string, any> {
-  const resolved: Record<string, any> = {}
+export function applyOverride(base: ConfigItem = {}, version = '', override: ConfigItem = {}) {
+  const versionData = base.versions?.[version] || {}
 
-  // Handle class
-  if (configItem.addClass) {
-    resolved.class = configItem.addClass
+  const merged: Record<string, any> = {
+    id: override.addId ?? base.addId ?? undefined,
+    class: [base.addClass, versionData.addClass, override.addClass]
+      .filter(Boolean)
+      .join(' ') || undefined,
+    ...Object.assign(
+      {},
+      base.addAttributes || {},
+      versionData.addAttributes || {},
+      override.addAttributes || {}
+    )
   }
 
-  // Handle attributes
-  if (configItem.addAttributes) {
-    Object.assign(resolved, configItem.addAttributes)
+  if (override.removeId) merged.id = undefined
+  if (override.removeClass) merged.class = undefined
+  if (Array.isArray(override.removeAttributes)) {
+    for (const key of override.removeAttributes) {
+      delete merged[key]
+    }
   }
 
-  // Handle props overrides
-  if (props.addClass) {
-    resolved.class = resolved.class ? `${resolved.class} ${props.addClass}` : props.addClass
+  return merged
+}
+
+type WrapperConfig = ConfigItem & {
+  targetAttribute: string
+}
+
+type WrapperOverride = {
+  target: string
+  addId?: string
+  addClass?: string
+  addAttributes?: Record<string, any>
+  removeId?: boolean
+  removeClass?: boolean
+  removeAttributes?: string[]
+}
+
+type ComponentConfig = {
+  wrappers?: WrapperConfig[]
+  elm?: ConfigItem
+  additionalConfig?: {
+    label?: ConfigItem
+  }
+}
+
+type ComponentProps = {
+  addId?: string
+  addClass?: string
+  addAttributes?: Record<string, any>
+  removeId?: boolean
+  removeClass?: boolean
+  removeAttributes?: string[]
+  name?: string
+  placeholder?: string
+  required?: boolean
+  autocomplete?: string
+  wrapperOverrides?: WrapperOverride[]
+}
+
+export function resolveWrappers(wrappers: WrapperConfig[] = [], version = '', wrapperOverrides: WrapperOverride[] = []) {
+  const wrapperAttrs: Record<string, any> = {}
+
+  for (const wrapper of wrappers) {
+    const key = wrapper.targetAttribute
+    const override = wrapperOverrides.find(o => o.target === key) || {}
+    wrapperAttrs[key] = applyOverride(wrapper, version, override)
   }
 
-  if (props.addAttributes) {
-    Object.assign(resolved, props.addAttributes)
-  }
+  return wrapperAttrs
+}
 
-  if (props.removeAttributes && configItem.removeAttributes) {
-    props.removeAttributes.forEach((attr: string) => {
-      delete resolved[attr]
-    })
-  }
+export function resolveAllConfigs(config: ComponentConfig, version: string, props: ComponentProps = {}) {
+  const wrapperOverrides = props.wrapperOverrides || []
 
-  return resolved
+  return {
+    wrapperAttrs: resolveWrappers(config.wrappers, version, wrapperOverrides),
+    inputAttrs: applyOverride(config.elm, version, {
+      addId: props.addId,
+      addClass: props.addClass,
+      addAttributes: {
+        name: props.name,
+        placeholder: props.placeholder,
+        required: props.required,
+        autocomplete: props.autocomplete,
+        ...(props.addAttributes || {})
+      },
+      removeId: props.removeId,
+      removeClass: props.removeClass,
+      removeAttributes: props.removeAttributes
+    }),
+    labelAttrs: applyOverride(config?.additionalConfig?.label || {}, version, {})
+  }
 }

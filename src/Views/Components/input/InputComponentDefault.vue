@@ -10,7 +10,7 @@
           <span v-if="requiredDisplay === '*'" class="text-red-500">*</span>
           <span
             v-else-if="requiredDisplay === 'italic-text'"
-            class="italic text-xs text-gray-500">
+            class="italic text-xs text-gray-500 float-right">
             Required
           </span>
         </label>
@@ -57,7 +57,7 @@ const props = defineProps({
   addClass: String,
   removeClass: Boolean,
   addAttributes: Object,
-  removeAttributes: Array,
+  removeAttributes: { type: Array as () => string[], default: () => [] },
 
   // Standard HTML input props
   name: String,
@@ -71,11 +71,11 @@ const props = defineProps({
   requiredDisplay: { type: String, default: '' }, // "*" or "italic-text"
 
   // Icons
-  leftIcon: [String, Object],
-  rightIcon: [String, Object],
+  leftIcon: [String, Object, Function],
+  rightIcon: [String, Object, Function],
 
   // Wrapper overrides
-  wrapperOverrides: { type: Array, default: () => [] }
+  wrapperOverrides: { type: Array as () => any[], default: () => [] }
 })
 
 // Input component config for default styling

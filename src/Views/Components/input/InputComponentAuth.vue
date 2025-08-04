@@ -60,7 +60,7 @@ const props = defineProps({
   addClass: String,
   removeClass: Boolean,
   addAttributes: Object,
-  removeAttributes: Array,
+  removeAttributes: { type: Array as () => string[], default: () => [] },
 
   // Standard HTML input props
   name: String,
@@ -78,7 +78,7 @@ const props = defineProps({
   rightIcon: [String, Object, Function],
 
   // Wrapper overrides
-  wrapperOverrides: { type: Array, default: () => [] }
+  wrapperOverrides: { type: Array as () => any[], default: () => [] }
 })
 
 // Input component config for auth styling
