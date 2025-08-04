@@ -1,0 +1,30 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Utilities */
+.pb-66 {
+  padding-bottom: 66px;
+}
+
+.pt-120 {
+  padding-top: 120px;
+}
+
+@media (min-width: 300px) and (max-width: 767px) {
+  .mobile\:pb-66 {
+  padding-bottom: 66px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .desktop-landscape\:text-3xl {
+  font-size: 1.875rem;
+  }
+}
+
+.hover\:bg-pink:hover {
+  background-color: #ff69b4;
+}
+  

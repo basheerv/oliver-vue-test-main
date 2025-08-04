@@ -12,6 +12,7 @@
           show-label
           label-text="Full Name"
           :left-icon="UserIcon"
+          description="Please enter your full name as it appears on your ID"
         />
       </div>
 
@@ -26,6 +27,7 @@
           required
           required-display="*"
           :left-icon="EnvelopeIcon"
+          description="We'll use this email to send you important updates"
         />
       </div>
 

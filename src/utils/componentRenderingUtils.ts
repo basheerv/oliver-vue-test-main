@@ -1,17 +1,3 @@
-export interface ConfigItem {
-  targetAttribute?: string
-  addClass?: string
-  removeClass?: boolean
-  addAttributes?: Record<string, any>
-  removeAttributes?: string[]
-}
-
-export interface ComponentConfig {
-  wrappers?: ConfigItem[]
-  elm?: ConfigItem
-  additionalConfig?: Record<string, ConfigItem>
-}
-
 type ConfigItem = {
   addId?: string
   addClass?: string
@@ -68,6 +54,7 @@ type ComponentConfig = {
   elm?: ConfigItem
   additionalConfig?: {
     label?: ConfigItem
+    description?: ConfigItem
   }
 }
 
@@ -116,6 +103,7 @@ export function resolveAllConfigs(config: ComponentConfig, version: string, prop
       removeClass: props.removeClass,
       removeAttributes: props.removeAttributes
     }),
-    labelAttrs: applyOverride(config?.additionalConfig?.label || {}, version, {})
+    labelAttrs: applyOverride(config?.additionalConfig?.label || {}, version, {}),
+    descriptionAttrs: applyOverride(config?.additionalConfig?.description || {}, version, {})
   }
 }

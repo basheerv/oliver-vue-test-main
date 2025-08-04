@@ -20,6 +20,7 @@
               required
               required-display="italic-text"
               :left-icon="EnvelopeIcon"
+              description="We'll never share your email with anyone else"
             />
           </div>
 
@@ -34,6 +35,7 @@
               required-display="italic-text"
               :right-icon="EyeSlashIcon"
               type="password"
+              description="Your password must be at least 8 characters long"
             />
           </div>
 

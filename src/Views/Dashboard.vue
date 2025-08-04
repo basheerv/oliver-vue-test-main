@@ -12,6 +12,7 @@
           show-label
           label-text="Beneficiary Account"
           :right-icon="QuestionMarkCircleIcon"
+          description="Enter the account number in your local format or IBAN format"
         />
       </div>
 
@@ -24,6 +25,7 @@
           show-label
           label-text="Account Holder Name"
           :left-icon="UserIcon"
+          description="Enter the name exactly as it appears on the bank account"
         />
       </div>
 

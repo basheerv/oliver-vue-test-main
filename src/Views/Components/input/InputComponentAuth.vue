@@ -41,6 +41,14 @@
           v-if="rightIcon"
           :is="rightIcon"
           class="absolute right-2 top-[50px] transform -translate-y-1/2 pointer-events-none w-5 h-5 text-white" />
+
+        <!-- Description -->
+        <p
+          v-if="description"
+          v-bind="resolvedAttrs.descriptionAttrs"
+          class="mt-1 text-sm text-white/80">
+          {{ description }}
+        </p>
       </div>
     </div>
   </div>
@@ -72,6 +80,9 @@ const props = defineProps({
   showLabel: Boolean,
   labelText: { type: String, default: 'Label' },
   requiredDisplay: { type: String, default: '' }, // "*" or "italic-text"
+
+  // Description
+  description: String,
 
   // Icons
   leftIcon: [String, Object, Function],
@@ -111,6 +122,12 @@ const inputConfig = {
       addClass: 'text-sm text-white font-medium',
       addAttributes: {
         for: 'input-id'
+      }
+    },
+    description: {
+      addClass: 'text-sm text-white/80',
+      addAttributes: {
+        'data-description': 'true'
       }
     }
   }
