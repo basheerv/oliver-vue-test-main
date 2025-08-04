@@ -46,13 +46,7 @@
         <p
           v-if="description"
           v-bind="resolvedAttrs.descriptionAttrs"
-          :class="[
-            'mt-1 text-sm',
-            descriptionType === 'error' ? 'text-red-400' :
-            descriptionType === 'warning' ? 'text-orange-400' :
-            descriptionType === 'success' ? 'text-green-400' :
-            'text-white/80'
-          ]">
+          class="mt-1 text-sm text-white/80">
           {{ description }}
         </p>
       </div>
@@ -89,7 +83,6 @@ const props = defineProps({
 
   // Description
   description: String,
-  descriptionType: { type: String, default: 'default' }, // "error", "warning", "success", "default"
 
   // Icons
   leftIcon: [String, Object, Function],

@@ -36,7 +36,6 @@
               :right-icon="EyeSlashIcon"
               type="password"
               description="Password strength is weak"
-              description-type="warning"
             />
           </div>
 

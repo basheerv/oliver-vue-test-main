@@ -42,7 +42,6 @@
           required
           required-display="italic-text"
           description="Please include your country code"
-          description-type="default"
         />
       </div>
 
@@ -105,7 +104,6 @@
           show-label
           label-text="Password"
           description="Password strength is weak"
-          description-type="warning"
         />
       </div>
 
@@ -118,7 +116,6 @@
           show-label
           label-text="Email"
           description="Email format is valid"
-          description-type="success"
         />
       </div>
     </div>
