@@ -1,0 +1,54 @@
+[
+  {
+    "name": "logo",
+    "type": "icon",
+    "path": "/assets/icons/logo.svg"
+  },
+  {
+    "name": "logoWebp",
+    "type": "icon",
+    "path": "/assets/icons/logo.webp"
+  },
+
+  {
+    "name": "heroBanner",
+    "type": "image",
+    "path": {
+      "dev":   "/assets/images/dev/hero.webp",
+      "stage": "/assets/images/stage/hero.webp",
+      "prod":  "/assets/images/prod/hero.webp"
+    }
+  },
+  {
+    "name": "placeholder",
+    "type": "image",
+    "path": "/assets/images/placeholder.png"
+  },
+
+  {
+    "name": "introVideo",
+    "type": "video",
+    "path": {
+      "dev":   "/assets/videos/dev/intro.webm",
+      "stage": "/assets/videos/stage/intro.webm",
+      "prod":  "/assets/videos/prod/intro.webm"
+    }
+  },
+
+  {
+    "name": "sliderScript",
+    "type": "script",
+    "path": "/assets/scripts/sliderscripts.js"
+  },
+
+  {
+    "name": "terms",
+    "type": "link",
+    "path": "/legal/terms"
+  },
+  {
+    "name": "privacy",
+    "type": "link",
+    "path": "/legal/privacy"
+  }
+]

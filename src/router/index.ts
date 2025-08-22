@@ -9,6 +9,11 @@ const router = createRouter({
       component: () => import('../Views/Dashboard/Parts/Orders/DashboardOrdersMainTemplate.vue'),
     },
     {
+      path: '/assets-demo',
+      name: 'AssetsDemo',
+      component: () => import('../Views/AssetsDemo.vue'),
+    },
+    {
       path: '/orders',
       name: 'orders',
       component: () => import('../Views/OrdersMain.vue'),
