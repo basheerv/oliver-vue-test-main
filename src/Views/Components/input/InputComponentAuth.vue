@@ -49,21 +49,6 @@
           class="mt-1 text-sm text-white/80">
           {{ description }}
         </p>
-
-        <!-- Validation Rules -->
-        <div v-if="validationRules && validationRules.length > 0" class="mt-2 space-y-1">
-          <div
-            v-for="rule in validationRules"
-            :key="rule.id"
-            class="flex items-center text-sm"
-            :class="getValidationRuleClass(rule)">
-            <component
-              :is="getValidationIcon(rule)"
-              class="w-4 h-4 mr-2"
-              :class="getValidationIconClass(rule)" />
-            <span>{{ rule.message }}</span>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -99,9 +84,6 @@ const props = defineProps({
 
   // Description
   description: String,
-
-  // Validation
-  validationRules: { type: Array as () => any[], default: () => [] },
 
   // Icons
   leftIcon: [String, Object, Function],
@@ -156,29 +138,4 @@ const inputConfig = {
 const resolvedAttrs = computed(() =>
   resolveAllConfigs(inputConfig, props.version, props)
 )
-
-// Validation methods
-const getValidationRuleClass = (rule: any) => {
-  if (rule.status === 'valid') return 'text-green-400'
-  if (rule.status === 'warning') return 'text-orange-400'
-  if (rule.status === 'error') return 'text-orange-400'
-  if (rule.status === 'pending') return 'text-orange-400'
-  return 'text-orange-400'
-}
-
-const getValidationIcon = (rule: any) => {
-  if (rule.status === 'valid') return CheckIcon
-  if (rule.status === 'warning') return ExclamationTriangleIcon
-  if (rule.status === 'error') return XCircleIcon
-  if (rule.status === 'pending') return ExclamationTriangleIcon
-  return ExclamationTriangleIcon
-}
-
-const getValidationIconClass = (rule: any) => {
-  if (rule.status === 'valid') return 'text-green-400'
-  if (rule.status === 'warning') return 'text-orange-400'
-  if (rule.status === 'error') return 'text-orange-400'
-  if (rule.status === 'pending') return 'text-orange-400'
-  return 'text-orange-400'
-}
 </script>

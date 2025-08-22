@@ -36,7 +36,6 @@
               :right-icon="EyeSlashIcon"
               type="password"
               description="Your password must meet security requirements"
-              :validation-rules="passwordValidationRules"
             />
           </div>
 
@@ -87,39 +86,6 @@ import { EnvelopeIcon, EyeSlashIcon } from '@heroicons/vue/24/outline'
 // Reactive data
 const email = ref('')
 const password = ref('')
-
-// Password validation rules
-const passwordValidationRules = computed(() => {
-  const pass = password.value
-  const rules = [
-    {
-      id: 'length',
-      message: 'Must be at least 8 characters long.',
-      status: pass.length >= 8 ? 'valid' : 'error'
-    },
-    {
-      id: 'uppercase',
-      message: 'Must contain at least one uppercase letter.',
-      status: /[A-Z]/.test(pass) ? 'valid' : 'error'
-    },
-    {
-      id: 'lowercase',
-      message: 'Must contain at least one lowercase letter.',
-      status: /[a-z]/.test(pass) ? 'valid' : 'error'
-    },
-    {
-      id: 'number',
-      message: 'Must contain at least one number.',
-      status: /[0-9]/.test(pass) ? 'valid' : 'error'
-    },
-    {
-      id: 'special',
-      message: 'Must contain at least one special character.',
-      status: /[!@#$%^&*(),.?":{}|<>]/.test(pass) ? 'valid' : 'error'
-    }
-  ]
-  return rules
-})
 
 // Form submission handler
 const handleSubmit = () => {

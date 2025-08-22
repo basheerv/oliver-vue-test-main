@@ -82,19 +82,6 @@
         />
       </div>
 
-      <!-- Username validation input -->
-      <div>
-        <h2 class="text-xl font-semibold text-gray-800 mb-4">Username Validation</h2>
-        <InputComponentDefault
-          v-model="usernameInput"
-          placeholder="Enter your username"
-          show-label
-          label-text="Username"
-          description="Usernames cannot be changed after your first month on Fansocial, but special circumstances may allow for exceptions. Please contact us if you need assistance with changing your username."
-          :validation-rules="usernameValidationRules"
-        />
-      </div>
-
       <!-- Warning state input -->
       <div>
         <h2 class="text-xl font-semibold text-gray-800 mb-4">Warning State Input</h2>
@@ -145,35 +132,6 @@ const warningInput = ref('')
 const successInput = ref('')
 const usernameInput = ref('')
 
-// Username validation rules
-const usernameValidationRules = computed(() => {
-  const username = usernameInput.value
-  const rules = [
-    {
-      id: 'length',
-      message: 'Must be between 3 and 100 characters long.',
-      status: username.length >= 3 && username.length <= 100 ? 'valid' : 'error'
-    },
-    {
-      id: 'characters',
-      message: 'Can contain any letters from a-z, any numbers from 0-9.',
-      status: /^[a-z0-9]+$/.test(username) ? 'valid' : 'error'
-    },
-    {
-      id: 'spaces',
-      message: 'Cannot contain space.',
-      status: !username.includes(' ') ? 'valid' : 'error'
-    },
-    {
-      id: 'availability',
-      message: username.length >= 3 && /^[a-z0-9]+$/.test(username) && !username.includes(' ')
-        ? `Good news! Username '${username}' is available!`
-        : `Sorry, username "${username}" is taken`,
-      status: username.length >= 3 && /^[a-z0-9]+$/.test(username) && !username.includes(' ') ? 'valid' : 'error'
-    }
-  ]
-  return rules
-})
 
 // Computed property to display all values
 const displayValues = computed(() => ({
