@@ -6,7 +6,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import unoCSS from 'unocss/vite'
 
-// https://vite.dev/config/
+// https://vite.dev/config/testing
 export default defineConfig({
   plugins: [
     vue(),
